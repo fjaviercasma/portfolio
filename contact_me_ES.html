@@ -16,67 +16,68 @@
 		</div>
 
 
+		<form action="send.php" method="post">
+			<div class="row">
+				<div class="col-10 offset-1 mt black-box" style="padding-top: 8%; padding-bottom: 5%;">
+					<div class="row mt">
+						<div class="col-2 offset-2">
+							<h6>Nombre completo: *</h6>
+						</div>
+						<div class="col-6">
+							<textarea class="form-control formElements" name="name" rows="1" type="text"></textarea>
+						</div>
+					</div>
 
-		<div class="row">
-			<div class="col-10 offset-1 mt black-box" style="padding-top: 8%; padding-bottom: 5%;">
-				<div class="row mt">
-					<div class="col-2 offset-2">
-						<h6>Nombre completo: *</h6>
+					<div class="row mt">
+						<div class="col-2 offset-2">
+							<h6>Empresa:</h6>
+						</div>
+						<div class="col-6">
+							<textarea class="form-control formElements" name="company" rows="1" type="text"></textarea>
+						</div>
 					</div>
-					<div class="col-6">
-						<textarea class="form-control formElements" rows="1" type="text"></textarea>
-					</div>
-				</div>
 
-				<div class="row mt">
-					<div class="col-2 offset-2">
-						<h6>Empresa:</h6>
+					<div class="row mt">
+						<div class="col-2 offset-2">
+							<h6>Información de Contacto:</h6>
+						</div>
+						<div class="col-6">
+							<textarea class="form-control formElements" name="contact-info" type="text"></textarea>
+						</div>
 					</div>
-					<div class="col-6">
-						<textarea class="form-control formElements" rows="1" type="text"></textarea>
-					</div>
-				</div>
 
-				<div class="row mt">
-					<div class="col-2 offset-2">
-						<h6>Información de Contacto:</h6>
+					<div class="row mt">
+						<div class="col-2 offset-2">
+							<h6>Asunto: *</h6>
+						</div>
+						<div class="col-6">
+							<textarea class="form-control formElements" name="subject" type="text"></textarea>
+						</div>
 					</div>
-					<div class="col-6">
-						<textarea class="form-control formElements" type="text"></textarea>
-					</div>
-				</div>
 
-				<div class="row mt">
-					<div class="col-2 offset-2">
-						<h6>Asunto: *</h6>
+					<div class="row mt">
+						<div class="col-2 offset-2">
+							<h6>Mensaje: *</h6>
+						</div>
+						<div class="col-6">
+							<textarea class="form-control formElements" name="text" rows="6" type="text"></textarea>
+						</div>
 					</div>
-					<div class="col-6">
-						<textarea class="form-control formElements" type="text"></textarea>
-					</div>
-				</div>
 
-				<div class="row mt">
-					<div class="col-2 offset-2">
-						<h6>Mensaje: *</h6>
-					</div>
-					<div class="col-6">
-						<textarea class="form-control formElements" rows="6" type="text"></textarea>
-					</div>
-				</div>
-
-				<div class="row mt">
-					<div class="col-1 offset-2" align="right">
-						<input class="formElements" type="checkbox" checked="true">
-					</div>
-					<div class="col-5">
-						<h6>Quiero una copia del correo</h6>
-					</div>
-					<div class="col-2" align="right">
-						<button class="btn btn-primary">Enviar</button>
+					<div class="row mt">
+						<div class="col-1 offset-2" align="right">
+							<input class="formElements" type="checkbox" checked="true">
+						</div>
+						<div class="col-5">
+							<h6>Quiero una copia del correo</h6>
+						</div>
+						<div class="col-2" align="right">
+							<button class="btn btn-primary" type="submit">Enviar</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </body>
 </html>
