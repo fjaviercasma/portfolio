@@ -3,7 +3,6 @@ $name = $_POST['name'];
 $company = $_POST['company'];
 $contactinfo = $_POST['contact-info'];
 $subject = $_POST['subject'];
-$text = $_POST['text'];
 
 $header = 'From: ' . $name . " \r\n";
 $header .= "X-Mailer: PHP/" . phpversion() . " \r\n";
@@ -22,5 +21,5 @@ $asunto = 'Mensaje de... (Escribe como quieres que se vea el remitente de tu cor
 
 mail($para, $asunto, utf8_decode($text), $header);
 
-header("Location:index_ES.html");
+header("Location:contact_me_ES.html");
 ?>
