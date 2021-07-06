@@ -19,6 +19,11 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-4 mt ml black-box">
 				<h1>Sample project</h1>
+				<h3><a onclick="showList(0)" href="#">Documentation</a></h3>
+				<div class="projects-list" style="display: none;">
+					<h4><a onclick="showObject(0)" href="#">prev</a></h4>
+				</div>
+				
 				<h2>Classes</h2>
 				<h4><a onclick="showObject(1)" href="#">class1</a></h4>
 				<h4><a onclick="showObject(2)" href="#">class2</a></h4>
@@ -27,12 +32,13 @@
 
 
 			<div class="col-sm-12 col-md-6 offset-md-1 mt project-box" style="background-color: rgba(255, 255, 255, 90%);">
-				<img class="object" src="../../img/test.gif" style="margin-left: 20%; width: 60%; display: block;">
-				<object class="object" width="900" height="750" type="text/plain" data="project_prev/Program.txt" border="0">
+				<p style="width: 97%;" align="right"><a onclick="showObject(0)" href="#">X</a></p>
+				<img class="object" src="../../img/test.gif" style="padding-bottom: 5%;margin-left: 20%; width: 60%; display: block;">
+				<object class="object" width="900" height="700" type="text/plain" data="project_prev/Program.txt" border="0">
 				</object>
-				<object class="object" width="900" height="750" type="text/plain" data="project_prev/Jugador.txt" border="0">
+				<object class="object" width="900" height="700" type="text/plain" data="project_prev/Jugador.txt" border="0">
 				</object>
-				<object class="object" width="900" height="750" type="text/plain" data="project_prev/Carta.txt" border="0">
+				<object class="object" width="900" height="700" type="text/plain" data="project_prev/Carta.txt" border="0">
 				</object>
 			</div>
 		</div>
@@ -40,7 +46,8 @@
 
 
 
-	<a href="project.rar" download="project.rar"><button class="btn btn-dark download">Descargar</button></a>
+	<a href="project.rar" download="project.rar"><button class="btn btn-dark download">Download</button></a>
 	<script type="text/javascript" src="../../js/project_prev.js"></script>
+	<script type="text/javascript" src="../../js/projects.js"></script>
 </body>
 </html>
