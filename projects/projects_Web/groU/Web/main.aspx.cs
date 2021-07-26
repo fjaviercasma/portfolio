@@ -111,29 +111,35 @@ namespace groU
         //Métodos del buscador
         protected void buscarPublicaciones_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarPublicaciones.Style.Clear();
             DoRefresh("12", "");
             mainContent.Text += Publicacion.ToString(new DALPublicacion().BuscarPublicaciones(buscador.Text, Int32.Parse(cookies[2].Value)));
             CargarContenido();
+            Refresh.Text = "yes";
         }
 
         protected void buscarEventos_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarEventos.Style.Clear();
             DoRefresh("13", "");
             mainContent.Text += Evento.ToString(new DALEvento().BuscarEventos(buscador.Text, Int32.Parse(cookies[2].Value)));
             CargarContenido();
+            Refresh.Text = "yes";
         }
 
         protected void buscarUsuarios_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarUsuarios.Style.Clear();
             DoRefresh("14", "");
             mainContent.Text += Usuario.ToString(new DALUsuario().BuscarUsuario(buscador.Text, Int32.Parse(cookies[2].Value)));
             CargarContenido();
+            Refresh.Text = "yes";
         }
 
 
@@ -143,6 +149,7 @@ namespace groU
         //Métodos del menú de la derecha
         protected void mainMain_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarPublicaciones.Style.Clear();
             DoRefresh("0", "");
@@ -152,10 +159,10 @@ namespace groU
 
         protected void mainPosts_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             string mainText = @"<div class='row'>
 					                <div class='col-12'>
-						                <h3><a onclick='nuevaPublicacion()'><span>Crear publicación</span></a></h3>
-						                <br>
+						                <h3 class='contenthover' onclick='nuevaPublicacion()'>Crear publicación</h3>
 					                </div>
 				                </div>";
             DoRefresh("1", mainText);
@@ -165,6 +172,7 @@ namespace groU
 
         protected void mainContPost_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             DoRefresh("2", "");
             mainContent.Text += Publicacion.ToString(new DALPublicacion().ObtenerPublicacion(user.PublicacionesContactosUsuario, Int32.Parse(cookies[2].Value)));
             CargarContenido();
@@ -172,6 +180,7 @@ namespace groU
 
         protected void mainEvents_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarEventos.Style.Clear();
             DoRefresh("3", "");
@@ -181,6 +190,7 @@ namespace groU
 
         protected void mainContacts_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             buscador.Style.Clear();
             buscarUsuarios.Style.Clear();
             DoRefresh("4", "");
@@ -195,22 +205,23 @@ namespace groU
         //Métodos del espacio que contiene la información del usuario en la izquierda
         protected void updateUserInfo_Click(object sender, EventArgs e)
         {
-            userInfo.Text = @"@Imagen
-                            <br>
+            userInfo.Text = @"
+                            <div class='profImg'></div>
                             <hr>
                             <h3>" + user.NombreUsuario + @"</h3>
-                            <h5>Estado: </h5>
-                            <p>" + user.Estado + @"</p><br>
-                            <h4>Número de contactos: " + user.ContactosUsuario.Count + @"</h4>
-                            <h4><a onclick='eventosUsuario()'><span>Mis eventos(" + user.EventosUsuario.Count + @")</span></a></h4>
-                            <h4><a onclick='eventosAsistir()'><span>Eventos a los que asisto(" + user.EventosActivosUsuario.Count + @")</span></a></h4>
-                            <h4>Número de publicaciones: " + user.PublicacionesUsuario.Count + @"</h4>
-                            <h4><a onclick='favoritos()'><span>Favoritos(" + user.PublicacionesFavoritasUsuario.Count + @")</span></a></h4>
-                            <h4>Bonos: " + user.NumeroBonos + "</h4>";
+                            <h5>Estado: " + user.Estado + @"</h5>
+                            <br>
+                            <h4 class='contenthover'>Contactos: " + user.ContactosUsuario.Count + @"</h4>
+                            <h4 class='contenthover' onclick='eventosUsuario()'>Mis eventos: " + user.EventosUsuario.Count + @"</h4>
+                            <h4 class='contenthover' onclick='eventosAsistir()'>Eventos colaborados: " + user.EventosActivosUsuario.Count + @"</h4>
+                            <h4 class='contenthover'>Mis publicaciones: " + user.PublicacionesUsuario.Count + @"</h4>
+                            <h4 class='contenthover' onclick='favoritos()'>Favoritos: " + user.PublicacionesFavoritasUsuario.Count + @"</h4>
+                            <h4 class='contenthover'>Bonos: " + user.NumeroBonos + "</h4>";
         }
 
         protected void userAssistance_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             CambiarContenido("5", "");
             mainContent.Text += Evento.ToString(new DALEvento().ObtenerEvento(user.EventosActivosUsuario, Int32.Parse(cookies[2].Value)));
             CargarContenido();
@@ -218,10 +229,10 @@ namespace groU
 
         protected void userEvents_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             string mainText = @"<div class='row'>
 					                <div class='col-12'>
-						                <h3><a onclick='nuevoEvento()'><span>Crear Evento</button></span></a></h3>
-						                <br>
+						                <h3 class='contenthover' onclick='nuevoEvento()'>Crear Evento</button></h3>
 					                </div>
 				                </div>";
             DoRefresh("6", mainText);
@@ -231,6 +242,7 @@ namespace groU
 
         protected void favs_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             DoRefresh("7", "");
             mainContent.Text += Publicacion.ToString(new DALPublicacion().ObtenerPublicacion(user.PublicacionesFavoritasUsuario, Int32.Parse(cookies[2].Value)));
             CargarContenido();
@@ -270,6 +282,7 @@ namespace groU
 
         protected void showPost_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             HttpCookie publicacion = Request.Cookies.Get("idPost");
             Publicacion post = new DALPublicacion().ObtenerPublicacion(Int32.Parse(publicacion.Value));
 
@@ -280,6 +293,7 @@ namespace groU
 
         protected void showComment_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             HttpCookie comentario = Request.Cookies.Get("idComentario");
             Comentario comment = new DALComentario().ObtenerComentario(Int32.Parse(comentario.Value));
 
@@ -294,6 +308,7 @@ namespace groU
 
         protected void showContactsContact_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             HttpCookie contacto = Request.Cookies.Get("idUsuario");
             Usuario contactito = new DALUsuario().ObtenerUsuario(Int32.Parse(contacto.Value));
             DoRefresh("10", "");
@@ -303,6 +318,7 @@ namespace groU
 
         protected void showUsersEvent_Click(object sender, EventArgs e)
         {
+            UpdateButton1.Style.Clear();
             HttpCookie evento = Request.Cookies.Get("idEvento");
             Evento eventito = new DALEvento().ObtenerEvento(Int32.Parse(evento.Value));
             DoRefresh("11", "");
@@ -317,6 +333,7 @@ namespace groU
         //Métodos para interactuar en la red social
         protected void mainNewPost_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             new DALPublicacion().NuevaPublicacion(Int32.Parse(cookies[0].Value), "<p>" + Content.Text.Replace("\n", "<br>") + "</p>");
             user = new DALUsuario().ObtenerUsuario(Int32.Parse(cookies[0].Value));
 
@@ -327,6 +344,7 @@ namespace groU
 
         protected void newEvent_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             new DALEvento().NuevoEvento(Int32.Parse(cookies[0].Value), Title.Text, "<p>" + Content.Text.Replace("\n", "<br>") + "</p>", Date.Text);
             user = new DALUsuario().ObtenerUsuario(Int32.Parse(cookies[0].Value));
 
@@ -339,12 +357,14 @@ namespace groU
 
         protected void likePost_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             HttpCookie post = Request.Cookies.Get("idPost");
             new DALUsuario().LikePost(Int32.Parse(cookies[0].Value), Int32.Parse(post.Value));
         }
 
         protected void commentPost_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             HttpCookie comment = Request.Cookies.Get("idPost");
             new DALComentario().ComentarPublicacion(Int32.Parse(cookies[0].Value), Int32.Parse(comment.Value), Content.Text.Replace("\n", "<br>"));
 
@@ -354,6 +374,7 @@ namespace groU
 
         protected void commentComment_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             HttpCookie toComment = Request.Cookies.Get("idComentario");
             new DALComentario().ComentarComentario(Int32.Parse(cookies[0].Value), Int32.Parse(toComment.Value), Content.Text.Replace("\n", "<br>"));
 
@@ -363,6 +384,7 @@ namespace groU
 
         protected void addContact_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             HttpCookie contacto = Request.Cookies.Get("idUsuario");
             new DALUsuario().AgregarContacto(Int32.Parse(cookies[0].Value), Int32.Parse(contacto.Value));
             user = new DALUsuario().ObtenerUsuario(Int32.Parse(cookies[0].Value));
@@ -372,6 +394,7 @@ namespace groU
 
         protected void addEvent_Click(object sender, EventArgs e)
         {
+            Refresh.Text = "yes";
             HttpCookie evento = Request.Cookies.Get("idEvento");
             new DALUsuario().ApuntarseEvento(Int32.Parse(cookies[0].Value), Int32.Parse(evento.Value));
             user = new DALUsuario().ObtenerUsuario(Int32.Parse(cookies[0].Value));

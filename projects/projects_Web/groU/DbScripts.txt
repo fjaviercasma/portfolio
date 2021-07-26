@@ -702,8 +702,7 @@ GO
 CREATE PROCEDURE [dbo].[NuevaPublicacion]
 	-- Add the parameters for the stored procedure here
 	@RIdUsuario int,
-	@Contenido varchar(500),
-	@Imagen varbinary(max)
+	@Contenido varchar(500)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -721,7 +720,7 @@ BEGIN
 	CAST(GETDATE() AS date),
 	0,
 	@Contenido,
-	@Imagen,
+	null,
 	0)
 END
 GO

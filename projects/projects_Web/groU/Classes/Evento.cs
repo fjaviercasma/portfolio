@@ -7,7 +7,7 @@ namespace groU
 {
     public class Evento
     {
-        //Datos de la publicación
+        //Datos del evento
         private int idEvento;
         private int RidUsuario;
         private string nombreEvento;
@@ -16,7 +16,7 @@ namespace groU
         private DateTime fechaCreacion;
         private DateTime fechaEvento;
 
-        //Relaciones de la publicación
+        //Relaciones del evento
         private List<int> usuariosEvento;
 
         //Variables extras
