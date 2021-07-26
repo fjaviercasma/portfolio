@@ -1,0 +1,99 @@
+This project simulates a social network and has been created using VisualStudio as an ASP.NET Web Application with .NET framework(c#) and it uses a Db in SQL Server.
+
+The project groU uses the DAL model in order to manipulate and make querys into the Db.
+It also uses a JavaScript file in order to call the functions of the server and uses cookies to know which data the user has to receibe when he makes a request to the server.
+
+
+Info of the Classes/Entities:
+Usuario(User):
+
+int idUsuario
+string nombreUsuario
+string nombre
+string apellidos
+string correo
+string contrasena
+string estado
+string bio
+string pais
+string ciudad
+int? telefono
+DateTime fechaNacimiento
+byte?[] fotoPerfil
+int numeroBonos
+List<int> contactosUsuario
+List<int> publicacionesUsuario
+List<int> publicacionesContactosUsuario
+List<int> publicacionesFavoritasUsuario
+List<int> eventosUsuario
+List<int> eventosActivosUsuario
+
+string ToString(Usuario)
+string ToString(List<Usuario>)
+
+
+
+Publicacion(Post):
+
+int idPublicacion
+int RidUsuario
+DateTime fechaPublicacion
+int likes
+string contenido
+byte?[] imagen
+int numComentarios
+List<int> comentariosPublicacion
+string nombreCreador
+
+string ToString(Publicacion)
+string ToString(List<Publicacion>)
+
+
+
+Evento(Event):
+
+int idEvento
+int RidUsuario
+string nombreEvento
+byte?[] imagen
+string contenido
+DateTime fechaCreacion
+DateTime fechaEvento
+List<int> usuariosEvento
+string nombreCreador
+
+string ToString(Evento)
+string ToString(List<Evento>)
+
+
+
+Comentario(Comment):
+
+int idComentario
+int RidUsuario
+int? RidComentario
+int RidPublicacion
+string contenido
+int numSubComentarios
+List<int> subComentarios
+string nombreCreador
+
+string ToString(Comentario)
+string ToString(List<Comentario>)
+
+
+
+
+
+
+Info of the auxiliary classes:
+DbConnect:
+
+DbConnect()
+string CreateQuery(string)
+
+
+
+groUtils:
+
+object GestionarNulos(object)

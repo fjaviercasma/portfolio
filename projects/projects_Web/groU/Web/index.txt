@@ -1,0 +1,58 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="groU.index" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>groU</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="Content/grou.css"/>
+</head>
+<body style="background-image: url('UserIF_img/bg.jpg'); background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="container-fluid main">
+        <div class="row" align="center">
+            <div id="indBg" class="col-8 offset-2">
+                <div class="row">
+                    <div class="col-12" align="center">
+                        <img id="logoIndex" src="UserIF_img/groU-logo.png" alt="logo" style="width: 40%; height: 50%; margin-left: 1%;"/>
+                        <span id="indText">
+                            <h4>La red social del planeta</h4>
+                            <br/>
+                            <br/>
+                            <h4><button class="btn btn-success" onclick="modal(1)">Únete</button> y <button class="btn btn-primary" onclick="modal(0)">Crece</button> con nosotros</h4>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="Login_SignUp" class="col-1" runat="server">
+		    <div class="modal row">
+		        <div class="modal-content modalLogin">
+                    <h5>Rellena el siguiente formulario para acceder:</h5>
+		            <asp:TextBox ID="loginUser" runat="server" Placeholder="Nombre de usuario o correo"></asp:TextBox>
+		            <asp:TextBox ID="loginPass" TextMode="password" runat="server" Placeholder="Contraseña"></asp:TextBox>
+                    <asp:Button ID="loginBtn" CssClass="btn btn-primary" runat="server" Text="Acceder" OnClick="loginBtn_Click" />
+                </div>
+		    </div>
+
+
+		    <div class="modal">
+		        <div class="modal-content modalRegistro">
+                    <h5>Rellena el siguiente formulario para registrarte:</h5>
+                    <asp:TextBox ID="signUser" CssClass="form-control" runat="server" Placeholder="Nombre de usuario"></asp:TextBox>
+                    <asp:TextBox ID="signMail" CssClass="form-control" runat="server" Placeholder="Correo"></asp:TextBox>
+                    <asp:TextBox ID="signMailConf" CssClass="form-control" runat="server" Placeholder="Confirmar correo"></asp:TextBox>
+                    <asp:TextBox ID="signPass" CssClass="form-control" TextMode="password" runat="server" Placeholder="Contraseña"></asp:TextBox>
+                    <asp:TextBox ID="signPassConf" CssClass="form-control" TextMode="password" runat="server" Placeholder="Confirmar contraseña"></asp:TextBox>
+                    <asp:TextBox ID="signDate" CssClass="form-control" TextMode="date" runat="server"></asp:TextBox>
+                    <asp:Button ID="signBtn" CssClass="btn btn-primary" runat="server" Text="Registrarse" OnClick="signBtn_Click" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="Scripts/index.js"></script>
+</body>
+</html>

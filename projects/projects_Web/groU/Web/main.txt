@@ -1,0 +1,176 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="main.aspx.cs" Inherits="groU.main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>groU-Main</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="Content/grou.css"/>
+</head>
+<body style="background-image: url('UserIF_img/bg.jpg'); background-repeat: no-repeat; background-attachment: fixed;">
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="ScriptManager1" runat="server" />
+		<div class="container-fluid main">
+			<div class="row">
+				<div class="col-3 profile">
+					<asp:UpdatePanel ID="UpdatePanel2" runat="server" updatemode="Conditional">
+						 <Triggers>
+							 <asp:AsyncPostBackTrigger ControlID="buscarPublicaciones"/>
+							 <asp:AsyncPostBackTrigger ControlID="buscarEventos"/>
+							 <asp:AsyncPostBackTrigger ControlID="buscarUsuarios"/>
+							 <asp:AsyncPostBackTrigger ControlID="showUsersEvent"/>
+							 <asp:AsyncPostBackTrigger ControlID="showContactsContact"/>
+							 <asp:AsyncPostBackTrigger ControlID="addEvent"/>
+							 <asp:AsyncPostBackTrigger ControlID="addContact"/>
+							 <asp:AsyncPostBackTrigger ControlID="showComment"/>
+							 <asp:AsyncPostBackTrigger ControlID="showPost"/>
+                             <asp:AsyncPostBackTrigger ControlID="showEvent"/>
+							 <asp:AsyncPostBackTrigger ControlID="favs"/>
+							 <asp:AsyncPostBackTrigger ControlID="showUser"/>
+							 <asp:AsyncPostBackTrigger ControlID="commentComment"/>
+							 <asp:AsyncPostBackTrigger ControlID="commentPost"/>
+							 <asp:AsyncPostBackTrigger ControlID="likePost"/>
+							 <asp:AsyncPostBackTrigger ControlID="newEvent"/>
+							 <asp:AsyncPostBackTrigger ControlID="userEvents"/>
+							 <asp:AsyncPostBackTrigger ControlID="userAssistance"/>
+							 <asp:AsyncPostBackTrigger ControlID="updateUserInfo"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainNewPost"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainMain"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainPosts"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainContPost"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainEvents"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainContacts"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainRewards"/>
+							 <asp:AsyncPostBackTrigger ControlID="mainSettings"/>
+						</Triggers>
+						<ContentTemplate>
+							<asp:Label runat="server" id="userInfo"/>
+                            <asp:Label ID="Refresh" CssClass="aspNetHidden" runat="server"></asp:Label>
+						</ContentTemplate>
+					</asp:UpdatePanel>
+				</div>
+
+				<asp:LinkButton ID="showUsersEvent" CssClass="aspNetHidden" runat="server" OnClick="showUsersEvent_Click"></asp:LinkButton>
+				<asp:LinkButton ID="showContactsContact" CssClass="aspNetHidden" runat="server" OnClick="showContactsContact_Click"></asp:LinkButton>
+				<asp:LinkButton ID="addEvent" CssClass="aspNetHidden" runat="server" OnClick="addEvent_Click"></asp:LinkButton>
+				<asp:LinkButton ID="addContact" CssClass="aspNetHidden" runat="server" OnClick="addContact_Click"></asp:LinkButton>
+				<asp:LinkButton ID="showComment" CssClass="aspNetHidden" runat="server" OnClick="showComment_Click"></asp:LinkButton>
+				<asp:LinkButton ID="showPost" CssClass="aspNetHidden" runat="server" OnClick="showPost_Click"></asp:LinkButton>
+                <asp:LinkButton ID="showEvent" CssClass="aspNetHidden" runat="server" OnClick="showEvent_Click"></asp:LinkButton>
+				<asp:LinkButton ID="showUser" CssClass="aspNetHidden" runat="server" OnClick="showUser_Click"></asp:LinkButton>
+				<asp:LinkButton ID="favs" CssClass="aspNetHidden" runat="server" OnClick="favs_Click"></asp:LinkButton>
+				<asp:LinkButton ID="likePost" CssClass="aspNetHidden" runat="server" OnClick="likePost_Click"></asp:LinkButton>
+				<asp:LinkButton ID="userEvents" CssClass="aspNetHidden" runat="server" OnClick="userEvents_Click"></asp:LinkButton>
+				<asp:LinkButton ID="userAssistance" CssClass="aspNetHidden" runat="server" OnClick="userAssistance_Click"></asp:LinkButton>
+				<asp:LinkButton ID="updateUserInfo" CssClass="aspNetHidden" runat="server" OnClick="updateUserInfo_Click"></asp:LinkButton>
+
+				<div class="col-8 section" style="max-height: 90vh; overflow-y: scroll;" align="center">
+					<asp:UpdatePanel ID="UpdatePanel1" runat="server" updatemode="Conditional">
+						<Triggers>
+							<asp:AsyncPostBackTrigger ControlID="buscarPublicaciones"/>
+							<asp:AsyncPostBackTrigger ControlID="buscarEventos"/>
+							<asp:AsyncPostBackTrigger ControlID="buscarUsuarios"/>
+							<asp:AsyncPostBackTrigger ControlID="showUsersEvent"/>
+							<asp:AsyncPostBackTrigger ControlID="showContactsContact"/>
+							<asp:AsyncPostBackTrigger ControlID="addEvent"/>
+							<asp:AsyncPostBackTrigger ControlID="addContact"/>
+							<asp:AsyncPostBackTrigger ControlID="showComment"/>
+							<asp:AsyncPostBackTrigger ControlID="showPost"/>
+                            <asp:AsyncPostBackTrigger ControlID="showEvent"/>
+							<asp:AsyncPostBackTrigger ControlID="favs"/>
+							<asp:AsyncPostBackTrigger ControlID="showUser"/>
+							<asp:AsyncPostBackTrigger ControlID="commentComment"/>
+							<asp:AsyncPostBackTrigger ControlID="commentPost"/>
+							<asp:AsyncPostBackTrigger ControlID="likePost"/>
+							<asp:AsyncPostBackTrigger ControlID="newEvent"/>
+							<asp:AsyncPostBackTrigger ControlID="userEvents"/>
+							<asp:AsyncPostBackTrigger ControlID="userAssistance"/>
+							<asp:AsyncPostBackTrigger ControlID="mainNewPost"/>
+							<asp:AsyncPostBackTrigger ControlID="mainMain"/>
+							<asp:AsyncPostBackTrigger ControlID="mainPosts"/>
+							<asp:AsyncPostBackTrigger ControlID="mainContPost"/>
+							<asp:AsyncPostBackTrigger ControlID="mainEvents"/>
+							<asp:AsyncPostBackTrigger ControlID="mainContacts"/>
+							<asp:AsyncPostBackTrigger ControlID="mainRewards"/>
+							<asp:AsyncPostBackTrigger ControlID="mainSettings"/>
+						</Triggers>
+						<ContentTemplate>
+                            <div class='row'>								
+                                <div class='col-10 offset-1 publicacion'>
+                                    <asp:Label runat="server" id="mainForm"/>
+									<div class='row'>										
+										<div class='col-8' style="margin-top: 10px">
+											<asp:TextBox ID="buscador" CssClass="form-control" style="display: none;" runat="server"></asp:TextBox>
+										</div>										
+										<div class='col-4' style="margin-top: 10px">
+											<asp:LinkButton ID="buscarPublicaciones" CssClass="btn btn-primary" style="display: none;" runat="server" OnClick="buscarPublicaciones_Click">Buscar publicaciones</asp:LinkButton>
+											<asp:LinkButton ID="buscarEventos" CssClass="btn btn-primary" style="display: none;" runat="server" OnClick="buscarEventos_Click">Buscar eventos</asp:LinkButton>
+											<asp:LinkButton ID="buscarUsuarios" CssClass="btn btn-primary" style="display: none;" runat="server" OnClick="buscarUsuarios_Click">Buscar usuarios</asp:LinkButton>
+										</div>
+									</div>
+									<asp:TextBox ID="Title" CssClass="form-control" style="display: none;" runat="server" Placeholder="Título"></asp:TextBox>
+                                    <asp:TextBox ID="Content" CssClass="form-control" style="display: none;" runat="server" TextMode="multiline" Placeholder="Contenido"></asp:TextBox>
+                                    <asp:TextBox ID="Date" CssClass="form-control" style="display: none;" runat="server" TextMode="date"></asp:TextBox>
+                                    <asp:LinkButton ID="commentPost" CssClass="btn btn-primary" style="display: none;" runat="server" OnClick="commentPost_Click">Comentar</asp:LinkButton>
+                                    <asp:LinkButton ID="commentComment" CssClass="btn btn-primary" style="display: none;" runat="server" OnClick="commentComment_Click">Comentar</asp:LinkButton>
+                                    <asp:LinkButton ID="mainNewPost" CssClass="btn btn-success" style="display: none;" runat="server" OnClick="mainNewPost_Click">Publicar</asp:LinkButton>
+				                    <asp:LinkButton ID="newEvent" CssClass="btn btn-success" style="display: none;" runat="server" OnClick="newEvent_Click">Publicar</asp:LinkButton>
+                                </div>
+                            </div>
+							<asp:Label runat="server" id="mainContent"/>
+							<br/>
+							<asp:Button runat="server" id="UpdateButton1" CssClass="btn btn-primary" OnClick="loadSMT" text="Load More"/>
+						</ContentTemplate>
+					</asp:UpdatePanel>
+				</div>
+
+				<div class="col-1">
+					<div class="row menu" align="right">
+						<div class="col-12" style="margin-top: 10px">
+							
+							<asp:Button ID="endSession" runat="server" CssClass="btn btn-primary" OnClick="endSession_Click" text="  Cerrar sessión  "/>
+						</div>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainMain" runat="server" OnClick="mainMain_Click"><img src="UserIF_img/Inicio.jpg" alt="Inicio"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainPosts" runat="server" OnClick="mainPosts_Click"><img src="UserIF_img/MisPublicaciones.jpg" alt="Mis publicaciones"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainContPost" runat="server" OnClick="mainContPost_Click"><img src="UserIF_img/PublicacionesContactos.jpg" alt="Destacados"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainEvents" runat="server" OnClick="mainEvents_Click"><img src="UserIF_img/Eventos.jpg" alt="Eventos"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainContacts" runat="server" OnClick="mainContacts_Click"><img src="UserIF_img/Contactos.jpg" alt="Contactos"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<asp:LinkButton ID="mainRewards" runat="server"><img src="UserIF_img/MisBonos.jpg" alt="Mis bonos"/></asp:LinkButton>
+					</div>
+
+					<div class="row menu">
+						<div class="col-12">
+							<asp:LinkButton ID="mainSettings" runat="server"><img src="UserIF_img/Ajustes.jpg" alt="Ajustes"/></asp:LinkButton>
+						</div>
+						<div class="col-9 offset-3">
+							<img src="UserIF_img/groU-logo.png" alt="groU logo"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<script src="Scripts/invoke.js"></script>
+</body>
+</html>

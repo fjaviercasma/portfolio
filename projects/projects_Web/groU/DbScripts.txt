@@ -1,0 +1,1025 @@
+USE [groU]
+GO
+/****** Object:  Table [dbo].[UsuarioEvento]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UsuarioEvento](
+	[RIdUsuario] [int] NOT NULL,
+	[RIdEvento] [int] NOT NULL,
+ CONSTRAINT [PK_UsuarioEvento] PRIMARY KEY CLUSTERED 
+(
+	[RIdUsuario] ASC,
+	[RIdEvento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[EventosUsuario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[EventosUsuario]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT RIdEvento FROM UsuarioEvento
+		WHERE @idUser = RIdUsuario
+)
+GO
+/****** Object:  Table [dbo].[Eventos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Eventos](
+	[IdEvento] [int] IDENTITY(1,1) NOT NULL,
+	[RIdUsuario] [int] NOT NULL,
+	[NombreEvento] [varchar](50) NOT NULL,
+	[Imagen] [varbinary](max) NULL,
+	[Contenido] [varchar](500) NOT NULL,
+	[FechaCreacion] [date] NOT NULL,
+	[FechaEvento] [date] NOT NULL,
+ CONSTRAINT [PK_Eventos] PRIMARY KEY CLUSTERED 
+(
+	[IdEvento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[EventosActivos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[EventosActivos]
+(	
+	-- Add the parameters for the function here
+
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Eventos
+	WHERE FechaEvento > CAST(GETDATE() AS date) OR FechaEvento = CAST(GETDATE() AS date)
+)
+GO
+/****** Object:  Table [dbo].[Publicaciones]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Publicaciones](
+	[IdPublicacion] [int] IDENTITY(1,1) NOT NULL,
+	[RIdUsuario] [int] NOT NULL,
+	[FechaPublicacion] [date] NOT NULL,
+	[Likes] [int] NOT NULL,
+	[Contenido] [varchar](500) NOT NULL,
+	[Imagen] [varbinary](max) NULL,
+	[NumComentarios] [int] NOT NULL,
+ CONSTRAINT [PK_Publicaciones] PRIMARY KEY CLUSTERED 
+(
+	[IdPublicacion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[MisPublicaciones]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[MisPublicaciones]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Publicaciones
+	WHERE @idUser = RIdUsuario
+)
+GO
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuarios](
+	[IdUsuario] [int] IDENTITY(1,1) NOT NULL,
+	[NombreUsuario] [varchar](100) NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Apellidos] [varchar](50) NULL,
+	[Correo] [varchar](100) NOT NULL,
+	[Contrasena] [varchar](50) NOT NULL,
+	[Estado] [varchar](300) NULL,
+	[Pais] [varchar](50) NULL,
+	[Ciudad] [varchar](50) NULL,
+	[Telefono] [int] NULL,
+	[FechaNacimiento] [date] NOT NULL,
+	[FotoPerfil] [varbinary](max) NULL,
+	[NumeroBonos] [int] NOT NULL,
+	[Bio] [varchar](500) NULL,
+ CONSTRAINT [PK_Usuarios] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UsuarioContacto]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UsuarioContacto](
+	[RIdUsuario] [int] NOT NULL,
+	[RIdContacto] [int] NOT NULL,
+ CONSTRAINT [PK_UsuarioContacto] PRIMARY KEY CLUSTERED 
+(
+	[RIdUsuario] ASC,
+	[RIdContacto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[Contactos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[Contactos]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT RIdContacto FROM UsuarioContacto
+		WHERE @idUser = RIdUsuario
+	UNION
+	SELECT RIdUsuario FROM UsuarioContacto
+		WHERE @idUser = RIdContacto
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[MostrarContactos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[MostrarContactos]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Usuarios
+	WHERE IdUsuario IN (SELECT * FROM dbo.Contactos(@idUser))
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[MostrarEventos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[MostrarEventos]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Eventos
+	WHERE IdEvento IN (SELECT * FROM dbo.EventosUsuario(@idUser))
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[PublicacionesContactos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[PublicacionesContactos]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Publicaciones
+	WHERE RIdUsuario IN (SELECT * FROM dbo.Contactos(@idUser))
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[IniciarSesionUsuario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[IniciarSesionUsuario]
+(	
+	-- Add the parameters for the function here
+	@user varchar(100),
+	@pass varchar(50)
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Usuarios
+	WHERE (@user = NombreUsuario OR @user = Correo) AND @pass = Contrasena
+)
+GO
+/****** Object:  Table [dbo].[Comentarios]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Comentarios](
+	[IdComentario] [int] IDENTITY(1,1) NOT NULL,
+	[RIdUsuario] [int] NOT NULL,
+	[RIdComentario] [int] NULL,
+	[RIdPublicacion] [int] NOT NULL,
+	[Comentario] [varchar](300) NOT NULL,
+	[NumSubComentarios] [int] NULL,
+ CONSTRAINT [PK_Comentarios] PRIMARY KEY CLUSTERED 
+(
+	[IdComentario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  UserDefinedFunction [dbo].[ComentariosPublicacion]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[ComentariosPublicacion]
+(	
+	-- Add the parameters for the function here
+	@RIdPublicacion int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Comentarios WHERE RIdPublicacion = @RIdPublicacion
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[SubcomentariosComentario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[SubcomentariosComentario]
+(	
+	-- Add the parameters for the function here
+	@RIdComentario int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Comentarios WHERE RIdComentario = @RIdComentario
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[EventosActivosUsuario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[EventosActivosUsuario]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT RIdEvento FROM UsuarioEvento
+		WHERE RIdEvento IN (SELECT IdEvento FROM dbo.EventosActivos()) AND @idUser = RIdUsuario
+)
+GO
+/****** Object:  UserDefinedFunction [dbo].[MostrarEventosActivos]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[MostrarEventosActivos]
+(	
+	-- Add the parameters for the function here
+	@idUser int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT * FROM Eventos
+	WHERE IdEvento IN (SELECT * FROM dbo.EventosActivosUsuario(@idUser))
+)
+GO
+/****** Object:  Table [dbo].[LikePublicacion]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LikePublicacion](
+	[RIdUsuario] [int] NOT NULL,
+	[RIdPublicacion] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Comentarios]  WITH CHECK ADD  CONSTRAINT [FK_Comentarios_Comentarios] FOREIGN KEY([RIdComentario])
+REFERENCES [dbo].[Comentarios] ([IdComentario])
+GO
+ALTER TABLE [dbo].[Comentarios] CHECK CONSTRAINT [FK_Comentarios_Comentarios]
+GO
+ALTER TABLE [dbo].[Comentarios]  WITH CHECK ADD  CONSTRAINT [FK_Comentarios_Publicaciones] FOREIGN KEY([RIdPublicacion])
+REFERENCES [dbo].[Publicaciones] ([IdPublicacion])
+GO
+ALTER TABLE [dbo].[Comentarios] CHECK CONSTRAINT [FK_Comentarios_Publicaciones]
+GO
+ALTER TABLE [dbo].[Comentarios]  WITH CHECK ADD  CONSTRAINT [FK_Comentarios_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[Comentarios] CHECK CONSTRAINT [FK_Comentarios_Usuarios]
+GO
+ALTER TABLE [dbo].[Eventos]  WITH CHECK ADD  CONSTRAINT [FK_Eventos_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[Eventos] CHECK CONSTRAINT [FK_Eventos_Usuarios]
+GO
+ALTER TABLE [dbo].[LikePublicacion]  WITH CHECK ADD  CONSTRAINT [FK_LikePublicacion_Publicaciones] FOREIGN KEY([RIdPublicacion])
+REFERENCES [dbo].[Publicaciones] ([IdPublicacion])
+GO
+ALTER TABLE [dbo].[LikePublicacion] CHECK CONSTRAINT [FK_LikePublicacion_Publicaciones]
+GO
+ALTER TABLE [dbo].[LikePublicacion]  WITH CHECK ADD  CONSTRAINT [FK_LikePublicacion_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[LikePublicacion] CHECK CONSTRAINT [FK_LikePublicacion_Usuarios]
+GO
+ALTER TABLE [dbo].[Publicaciones]  WITH CHECK ADD  CONSTRAINT [FK_Publicaciones_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[Publicaciones] CHECK CONSTRAINT [FK_Publicaciones_Usuarios]
+GO
+ALTER TABLE [dbo].[UsuarioContacto]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioContacto_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[UsuarioContacto] CHECK CONSTRAINT [FK_UsuarioContacto_Usuarios]
+GO
+ALTER TABLE [dbo].[UsuarioContacto]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioContacto_Usuarios1] FOREIGN KEY([RIdContacto])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[UsuarioContacto] CHECK CONSTRAINT [FK_UsuarioContacto_Usuarios1]
+GO
+ALTER TABLE [dbo].[UsuarioEvento]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioEvento_Eventos] FOREIGN KEY([RIdEvento])
+REFERENCES [dbo].[Eventos] ([IdEvento])
+GO
+ALTER TABLE [dbo].[UsuarioEvento] CHECK CONSTRAINT [FK_UsuarioEvento_Eventos]
+GO
+ALTER TABLE [dbo].[UsuarioEvento]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioEvento_Usuarios] FOREIGN KEY([RIdUsuario])
+REFERENCES [dbo].[Usuarios] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[UsuarioEvento] CHECK CONSTRAINT [FK_UsuarioEvento_Usuarios]
+GO
+/****** Object:  StoredProcedure [dbo].[AgregarContacto]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[AgregarContacto]
+	-- Add the parameters for the stored procedure here
+	@RIdUsuario int,
+	@RIdContacto int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF (SELECT RIdUsuario FROM UsuarioContacto WHERE @RIdUsuario = RIdUsuario AND @RIdContacto = RIdContacto) IS NULL
+		BEGIN
+			IF (SELECT RIdUsuario FROM UsuarioContacto WHERE @RIdUsuario = RIdContacto AND @RIdContacto = RIdUsuario) IS NULL
+				BEGIN
+					INSERT INTO UsuarioContacto(RIdUsuario,
+					RIdContacto)
+					VALUES (@RIdUsuario,
+					@RIdContacto)
+				END
+
+			ELSE
+				BEGIN
+					DELETE FROM UsuarioContacto WHERE @RIdUsuario = RIdContacto AND @RIdContacto = RIdUsuario
+				END
+		END
+	ELSE
+		BEGIN
+			DELETE FROM UsuarioContacto WHERE @RIdUsuario = RIdUsuario AND @RIdContacto = RIdContacto
+		END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ComentarComentario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[ComentarComentario]
+	-- Add the parameters for the stored procedure here
+	@idUsuario int,
+	@RIdComentario int,
+	@Comentario varchar(300)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Comentarios(RIdUsuario,
+				RIdComentario,
+				RIdPublicacion,
+				Comentario,
+				NumSubComentarios)
+			VALUES (@idUsuario,
+					@RIdComentario,
+					(SELECT RIdPublicacion FROM Comentarios WHERE @RIdComentario = IdComentario),
+					@Comentario,
+					0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ComentarPublicacion]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[ComentarPublicacion]
+	-- Add the parameters for the stored procedure here
+	@idUsuario int,
+	@idPublicacion int,
+	@Comentario varchar(300)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Comentarios(RIdUsuario,
+				RIdComentario,
+				RIdPublicacion,
+				Comentario,
+				NumSubComentarios)
+			VALUES (@idUsuario,
+					null,
+					@idPublicacion,
+					@Comentario,
+					0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DarAltaUsuario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[DarAltaUsuario]
+	-- Add the parameters for the stored procedure here
+	@user varchar(100),
+	@mail varchar(100),
+	@pass varchar(50),
+	@date date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF (SELECT IdUsuario FROM Usuarios WHERE @user = NombreUsuario OR @mail = Correo) IS NULL
+	BEGIN
+		INSERT INTO Usuarios(NombreUsuario,
+		Correo,
+		Contrasena,
+		FechaNacimiento,
+		NumeroBonos)
+		VALUES (@user,
+		@mail,
+		@pass,
+		@date,
+		0)
+	END
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DarLikePublicacion]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[DarLikePublicacion]
+	-- Add the parameters for the stored procedure here
+	@RIdUsuario int,
+	@RIdPublicacion int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	IF (SELECT RIdUsuario FROM LikePublicacion WHERE @RIdUsuario = RIdUsuario AND @RIdPublicacion = RIdPublicacion) IS NULL
+		BEGIN
+			INSERT INTO LikePublicacion(RIdUsuario,
+			RIdPublicacion)
+			VALUES (@RIdUsuario,
+			@RIdPublicacion)
+		END
+	ELSE
+		BEGIN
+			DELETE FROM LikePublicacion WHERE @RIdUsuario = RIdUsuario AND @RIdPublicacion = RIdPublicacion
+		END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ModificarUsuario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[ModificarUsuario]
+	-- Add the parameters for the stored procedure here
+	@IdUsuario int,
+	@NombreUsuario varchar(100),
+	@Nombre varchar(50),
+	@Apellidos varchar(50),
+	@Correo varchar(100),
+	@Contrasena varchar(50),
+	@Estado varchar(300),
+	@Pais varchar(50),
+	@Ciudad varchar(50),
+	@Telefono int,
+	@FechaNacimiento date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Usuarios
+	SET NombreUsuario = @NombreUsuario,
+		Nombre = @Nombre,
+		Apellidos = @Apellidos,
+		Correo = @Correo,
+		Contrasena = @Contrasena,
+		Estado = @Estado,
+		Pais = @Pais,
+		Ciudad = @Ciudad,
+		Telefono = @Telefono,
+		FechaNacimiento = @FechaNacimiento
+	WHERE IdUsuario = @IdUsuario
+END
+GO
+/****** Object:  StoredProcedure [dbo].[NuevaPublicacion]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[NuevaPublicacion]
+	-- Add the parameters for the stored procedure here
+	@RIdUsuario int,
+	@Contenido varchar(500),
+	@Imagen varbinary(max)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Publicaciones(RIdUsuario,
+	FechaPublicacion,
+	Likes,
+	Contenido,
+	Imagen,
+	NumComentarios)
+	VALUES (@RIdUsuario,
+	CAST(GETDATE() AS date),
+	0,
+	@Contenido,
+	@Imagen,
+	0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[NuevoComentario]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[NuevoComentario]
+	-- Add the parameters for the stored procedure here
+	@RIdUsuario int,
+	@RIdComentario int,
+	@RIdPublicacion int,
+	@Comentario varchar(300)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Comentarios(RIdUsuario,
+	RIdComentario,
+	RIdPublicacion,
+	Comentario,
+	NumSubComentarios)
+	VALUES (@RIdUsuario,
+	@RIdComentario,
+	@RIdPublicacion,
+	@Comentario,
+	0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[NuevoEvento]    Script Date: 7/26/2021 1:48:24 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[NuevoEvento]
+	-- Add the parameters for the stored procedure here
+	@RIdUsuario int,
+	@NombreEvento varchar(50),
+	@Contenido varchar(500),
+	@FechaEvento date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO Eventos(RIdUsuario,
+	NombreEvento,
+	Imagen,
+	Contenido,
+	FechaCreacion,
+	FechaEvento)
+	VALUES (@RIdUsuario,
+	@NombreEvento,
+	null,
+	@Contenido,
+	CAST(GETDATE() AS date),
+	@FechaEvento)
+END
+GO
+
+////////////////////////////// TRIGGERS
+
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[ActualizarNumeroComentarios]    Script Date: 7/26/2021 1:49:23 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[ActualizarNumeroComentarios]
+   ON  [dbo].[Comentarios] 
+   AFTER INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE Publicaciones
+	SET NumComentarios = NumComentarios + 1
+	WHERE (SELECT RIdPublicacion FROM inserted) = IdPublicacion
+
+	IF (SELECT RIdComentario FROM inserted) IS NOT NULL
+	BEGIN
+		UPDATE Comentarios
+		SET NumSubComentarios = NumSubComentarios + 1
+		WHERE (SELECT RIdComentario FROM inserted) = IdComentario
+	END
+    -- Insert statements for trigger here
+
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[DeleteSubComentariosComentarioBorrado]    Script Date: 7/26/2021 1:50:20 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[DeleteSubComentariosComentarioBorrado]
+   ON  [dbo].[Comentarios] 
+   INSTEAD OF DELETE 
+AS 
+BEGIN
+	
+	SET NOCOUNT ON;
+
+	DELETE FROM dbo.Comentarios WHERE RIdComentario IN (SELECT IdComentario FROM deleted);
+	DELETE FROM dbo.Comentarios WHERE IdComentario IN (SELECT IdComentario FROM deleted);
+
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[NuevoEventoInscribirCreador]    Script Date: 7/26/2021 1:50:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[NuevoEventoInscribirCreador] 
+   ON  [dbo].[Eventos] 
+   AFTER INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+    -- Insert statements for trigger here
+	INSERT INTO UsuarioEvento(RIdUsuario, RIdEvento)
+	SELECT RIdUsuario, IdEvento FROM inserted
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[BorrarLike]    Script Date: 7/26/2021 1:51:15 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[BorrarLike] 
+   ON  [dbo].[LikePublicacion] 
+   AFTER DELETE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for trigger here
+	UPDATE Publicaciones
+		SET Likes = Likes - 1
+		WHERE (SELECT RIdPublicacion FROM deleted) = IdPublicacion
+
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[NuevoLike]    Script Date: 7/26/2021 1:51:27 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[NuevoLike] 
+   ON  [dbo].[LikePublicacion] 
+   AFTER INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for trigger here
+	UPDATE Publicaciones
+		SET Likes = Likes + 1
+		WHERE (SELECT RIdPublicacion FROM inserted) = IdPublicacion
+
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[BorrarComentariosPublicacionesBorradas]    Script Date: 7/26/2021 1:51:45 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[BorrarComentariosPublicacionesBorradas] 
+   ON  [dbo].[Publicaciones] 
+   INSTEAD OF DELETE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for trigger here
+	DELETE FROM dbo.Comentarios WHERE RIdPublicacion IN (SELECT IdPublicacion FROM deleted);
+	DELETE FROM dbo.Publicaciones WHERE IdPublicacion IN (SELECT IdPublicacion FROM deleted);
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[ApuntarseBorrarseEvento]    Script Date: 7/26/2021 1:52:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[ApuntarseBorrarseEvento] 
+   ON  [dbo].[UsuarioEvento] 
+   INSTEAD OF INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for trigger here
+	IF EXISTS (SELECT * FROM UsuarioEvento 
+	WHERE RIdUsuario = (SELECT RIdUsuario FROM inserted) AND RIdEvento = (SELECT RIdEvento FROM inserted))
+	BEGIN
+		DELETE FROM UsuarioEvento WHERE RIdUsuario = (SELECT RIdUsuario FROM inserted) 
+		AND RIdEvento = (SELECT RIdEvento FROM inserted)  
+	END
+	ELSE
+	BEGIN
+		INSERT INTO UsuarioEvento SELECT RIdUsuario, RIdEvento FROM inserted
+	END
+END
+USE [groU]
+GO
+/****** Object:  Trigger [dbo].[DeleteUsuario]    Script Date: 7/26/2021 1:52:15 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE TRIGGER [dbo].[DeleteUsuario] 
+   ON  [dbo].[Usuarios] 
+   INSTEAD OF DELETE
+AS 
+BEGIN
+	
+	SET NOCOUNT ON;
+
+	DELETE FROM dbo.Comentarios WHERE RIdUsuario IN (SELECT IdUsuario FROM deleted);	
+	DELETE FROM dbo.Eventos WHERE RIdUsuario IN (SELECT IdUsuario FROM deleted);
+	DELETE FROM dbo.Publicaciones WHERE RIdUsuario IN (SELECT IdUsuario FROM deleted);
+	DELETE FROM dbo.UsuarioContacto WHERE  RIdContacto IN (SELECT IdUsuario FROM deleted) OR RIdUsuario IN (SELECT IdUsuario FROM deleted);
+	DELETE FROM dbo.UsuarioEvento WHERE RIdUsuario IN (SELECT IdUsuario FROM deleted);
+	DELETE FROM dbo.Usuarios WHERE IdUsuario IN (SELECT IdUsuario FROM deleted);
+
+END
