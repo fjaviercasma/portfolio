@@ -211,12 +211,12 @@ namespace groU
                             <h3>" + user.NombreUsuario + @"</h3>
                             <h5>Estado: " + user.Estado + @"</h5>
                             <br>
-                            <h4 class='contenthover'>Contactos: " + user.ContactosUsuario.Count + @"</h4>
+                            <h4>Contactos: " + user.ContactosUsuario.Count + @"</h4>
                             <h4 class='contenthover' onclick='eventosUsuario()'>Mis eventos: " + user.EventosUsuario.Count + @"</h4>
                             <h4 class='contenthover' onclick='eventosAsistir()'>Eventos colaborados: " + user.EventosActivosUsuario.Count + @"</h4>
-                            <h4 class='contenthover'>Mis publicaciones: " + user.PublicacionesUsuario.Count + @"</h4>
+                            <h4>Mis publicaciones: " + user.PublicacionesUsuario.Count + @"</h4>
                             <h4 class='contenthover' onclick='favoritos()'>Favoritos: " + user.PublicacionesFavoritasUsuario.Count + @"</h4>
-                            <h4 class='contenthover'>Bonos: " + user.NumeroBonos + "</h4>";
+                            <h4>Bonos: " + user.NumeroBonos + "</h4>";
         }
 
         protected void userAssistance_Click(object sender, EventArgs e)
