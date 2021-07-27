@@ -60,7 +60,7 @@ namespace groU
                 reader.Close();
 
                 user.PublicacionesContactosUsuario = new List<int>();
-                reader = MainCnx.CreateQuery("SELECT IdPublicacion FROM dbo.PublicacionesContactos(" + IdUsuario + ") ORDER BY FechaPublicacion DESC, Likes DESC");
+                reader = MainCnx.CreateQuery("SELECT IdPublicacion FROM dbo.PublicacionesContactos(" + IdUsuario + ") ORDER BY IdPublicacion DESC, Likes DESC");
                 while (reader.Read())
                 {
                     user.PublicacionesContactosUsuario.Add((int)reader["IdPublicacion"]);

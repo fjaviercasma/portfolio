@@ -360,6 +360,7 @@ namespace groU
             Refresh.Text = "yes";
             HttpCookie post = Request.Cookies.Get("idPost");
             new DALUsuario().LikePost(Int32.Parse(cookies[0].Value), Int32.Parse(post.Value));
+            user = new DALUsuario().ObtenerUsuario(Int32.Parse(cookies[0].Value));
             switch (cookies[1].Value)
             {
                 case "0":
@@ -375,6 +376,7 @@ namespace groU
                     showPost_Click(null, null);
                     break;
             }
+            updateUserInfo_Click(null, null);
         }
 
         protected void commentPost_Click(object sender, EventArgs e)

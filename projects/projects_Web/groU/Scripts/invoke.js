@@ -28,7 +28,7 @@ function nuevoEvento() {
     else {
         titulo.style.display = "none";
         comentar.style.display = "none";
-        fecha.style.display = "fecha";
+        fecha.style.display = "none";
         boton.style.display = "none";
     }
 }

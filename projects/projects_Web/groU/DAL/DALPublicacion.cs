@@ -76,7 +76,7 @@ namespace groU
                 List<Publicacion> posts = new List<Publicacion>();
                 int cont = 0;
 
-                SqlDataReader reader = AuxCnx.CreateQuery("SELECT * FROM Publicaciones ORDER BY FechaPublicacion DESC, Likes DESC");
+                SqlDataReader reader = AuxCnx.CreateQuery("SELECT * FROM Publicaciones ORDER BY IdPublicacion DESC, Likes DESC");
                 while (reader.Read())
                 {
                     if (cont >= index && cont < index + 10)
